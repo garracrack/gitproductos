@@ -2,11 +2,29 @@
   <div class="card-header bg-primary text-white">
     {{title}}
   </div>
+
+  <form class="form mt-3">
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2 text-sm-right" for="filterDesc">Filtro:</label>
+      <div class="col-sm-5">
+        <input type="text" [(ngModel)]="filterSearch" class="form-control" name="filterDesc" id="filterDesc" placeholder="Filter...">
+    </div>
+    <label class="col-form-label col-sm-5">Filtrando por: {{filterSearch}}</label>
+    </div>
+  </form>
+
   <div class="card-block">
     <div class="table-responsive" *ngIf="productos && productos.length">
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>
+              <button class="btn btn-sm"
+                [ngClass]="{'btn-danger': showImage, 'btn-primary': !showImage}"
+                (click)="toggleImage()">
+                {{showImage?'Ocultar':'Mostrar'}} imagen
+             </button>
+            </th>
             <th>{{headers.descripcion}}</th>
             <th>{{headers.price}}</th>
             <th>{{headers.avail}}</th>
@@ -14,10 +32,11 @@
         </thead>
         <tbody>
 <!-- Aquí van los productos. Por ahora se queda vacío -->
-          <tr *ngFor="let product of productos">
+          <tr *ngFor="let product of productos | productFilter:filterSearch">
+            <td><img [src]="product.imageUrl" alt="" *ngIf="showImage"></td>
             <td>{{product.desc}}</td>
-            <td>{{product.price}}</td>
-            <td>{{product.avail}}</td>
+            <td>{{product.price | currency:'EUR'}}</td>
+            <td>{{product.avail | date:'dd/MM/y'}}</td>
           </tr>
       </tbody>
       </table>

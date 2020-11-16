@@ -8,7 +8,7 @@ import { IProducto } from '../interfaces/i-producto';
 })
 export class ProductListComponent implements OnInit {
   public title:string="Mi lista de Productos";
-  public headers={descripcion:'Producto', price: 'precio', avail: 'disponible'};
+  public headers={image: 'Imagen', descripcion:'Producto', price: 'precio', avail: 'disponible'};
   public productos: IProducto[] = [{
     id: 1,
     desc: 'SSD hard drive',
@@ -25,11 +25,17 @@ export class ProductListComponent implements OnInit {
     rating: 4
   }];
 
+  public showImage:boolean=true;
+  public filterSearch:string="";
 
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleImage(){
+    this.showImage=!this.showImage;
   }
 
 }

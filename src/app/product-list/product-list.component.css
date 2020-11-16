@@ -1,0 +1,18 @@
+td:first-child img{
+  height: 40px;
+}
+
+td{
+  vertical-align: middle;
+  color:green;
+}
+
+.azul{
+  background-color: blue;
+  color:white;
+}
+
+.rojo{
+  background-color: red;
+  color:white;
+}
