@@ -1,18 +1,22 @@
-td:first-child img{
-  height: 40px;
+.headers {
+  font-weight: bold;
+  border-bottom: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+product-item:nth-child(odd) {
+  background: #EEE;
 }
 
-td{
-  vertical-align: middle;
-  color:green;
+.tabla{
+  display:table;
 }
-
-.azul{
-  background-color: blue;
-  color:white;
+.fila{
+  display:table-row;
 }
-
-.rojo{
-  background-color: red;
-  color:white;
+.celda{
+  display:table-cell;
+  width:500px;
+  font-weight: bold;
 }

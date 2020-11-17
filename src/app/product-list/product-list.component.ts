@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IProducto } from '../interfaces/i-producto';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -8,30 +9,17 @@ import { IProducto } from '../interfaces/i-producto';
 })
 export class ProductListComponent implements OnInit {
   public title:string="Mi lista de Productos";
-  public headers={image: 'Imagen', descripcion:'Producto', price: 'precio', avail: 'disponible'};
-  public productos: IProducto[] = [{
-    id: 1,
-    desc: 'SSD hard drive',
-    avail: new Date('2016-10-03'),
-    price: 75,
-    imageUrl: 'assets/ssd.jpg',
-    rating: 5
-  },{
-    id: 2,
-    desc: 'LGA1151 Motherboard',
-    avail: new Date('2016-09-15'),
-    price: 96.95,
-    imageUrl: 'assets/motherboard.jpg',
-    rating: 4
-  }];
+  public headers={image: 'Imagen', descripcion:'Producto', price: 'precio', avail: 'disponible', rating:'puntuación'};
+  public productos: IProducto[] = [];
 
   public showImage:boolean=true;
   public filterSearch:string="";
 
 
-  constructor() { }
+  constructor(private productosService:ProductService) { }
 
   ngOnInit(): void {
+    this.productos=this.productosService.getProductos();
   }
 
   toggleImage(){
