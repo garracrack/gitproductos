@@ -19,7 +19,12 @@ export class ProductListComponent implements OnInit {
   constructor(private productosService:ProductService) { }
 
   ngOnInit(): void {
-    this.productos=this.productosService.getProductos();
+    //this.productos=this.productosService.getProductos();
+    this.productosService.getProductos().subscribe(
+      respProductos => this.productos=respProductos.productos,
+      error => console.log(error),
+      () => console.log("Finalizada la carga de productos")
+    );
   }
 
   toggleImage(){

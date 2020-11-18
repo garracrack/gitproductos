@@ -1,28 +1,36 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
 import { IProducto } from '../interfaces/i-producto';
+import { catchError, map } from 'rxjs/operators'
+import { ResponseOk, ResponseProductos } from '../interfaces/responses';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor() { }
+  private productoURL:string="productos";
 
-  getProductos(): IProducto[]{
-    return [{
-      id: 1,
-      desc: 'SSD hard drive',
-      avail: new Date('2016-10-03'),
-      price: 75,
-      imageUrl: 'assets/ssd.jpg',
-      rating: 5
-    },{
-      id: 2,
-      desc: 'LGA1151 Motherboard',
-      avail: new Date('2016-09-15'),
-      price: 96.95,
-      imageUrl: 'assets/motherboard.jpg',
-      rating: 4
-    }];
+  constructor(private http:HttpClient) { }
+
+  /*getProductos(): Observable <IProducto[]>{
+    return this.http.get<ResponseProductos>(this.productoURL).pipe(
+      map(res=>res.productos),
+      catchError((resp:HttpErrorResponse) => throwError(
+        'Error obteniendo los productos. Servidor:'+resp.status+' Mensaje:'+resp.message
+      ))
+    );
+  }*/
+
+  getProductos():Observable<ResponseProductos>{
+    return this.http.get<ResponseProductos>(this.productoURL);
   }
+
+  changeRating(idProducto:number,rating:number){
+    return this.http.put<ResponseOk>(this.productoURL+"/rating/"+idProducto, {rating:rating});
+  }
+
+
+
 }
