@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { IProducto } from '../interfaces/i-producto';
 import { catchError, map } from 'rxjs/operators'
-import { ResponseOk, ResponseProductos } from '../interfaces/responses';
+import { ResponseOk, ResponseProducto, ResponseProductos } from '../interfaces/responses';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,10 @@ export class ProductService {
 
   getProductos():Observable<ResponseProductos>{
     return this.http.get<ResponseProductos>(this.productoURL);
+  }
+
+  getProducto(idProducto: number): Observable<ResponseProducto>{
+    return this.http.get<ResponseProducto>(this.productoURL+"/"+idProducto);
   }
 
   changeRating(idProducto:number,rating:number){
